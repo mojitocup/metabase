@@ -54,6 +54,6 @@ networks:
 #Create sercret files in root folder and add username and password for DB connection
 secrets:
   db_password:
-    file: db_password.txt
+    file: .db_password
   db_user:
-    file: db_user.txt
+    file: .db_user
