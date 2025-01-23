@@ -117,3 +117,6 @@ modules/drivers/*/.lsp/*
 
 # swc
 .swc/
+
+.db_password
+.db_user
