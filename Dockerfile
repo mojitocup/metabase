@@ -56,10 +56,3 @@ EXPOSE 3000
 
 # run it
 ENTRYPOINT ["/app/run_metabase.sh"]
-
-FROM metabase/metabase:latest
-
-# Add any custom configurations or modifications here
-# For example:
-# COPY custom-settings.yml /app/
-# RUN some-custom-commands
