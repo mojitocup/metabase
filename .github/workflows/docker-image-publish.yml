@@ -1,0 +1,30 @@
+name: Build and Push Docker Image to GitHub Container Registry
+
+on:
+  push:
+    branches:
+      - master  # Trigger on push to 'master' branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      # Step 3: Build the Docker image for arm64 with build-arg
+      - name: Build Docker image
+        run: |
+          docker buildx create --use
+          docker buildx build --platform linux/arm64 --build-arg VERSION=latest -t ghcr.io/${{ github.repository_owner }}/metabase:arm . --load
+
+      # Step 4: Push the Docker image to GitHub Container Registry
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/metabase:arm
